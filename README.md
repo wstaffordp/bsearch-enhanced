@@ -6,8 +6,6 @@ On average, it's faster and safer than every other evaluated search algorithm fo
 
 I welcome submissions of algorithms in the same class that challenge the aforementioned claim.
 
-Detailed benchmark results are coming soon.
-
 `bsearch_enhanced()` is the search function that searches for an element in an array of sorted elements.
 
 It accepts the following 5 arguments in left-to-right order.
@@ -35,5 +33,86 @@ In addition to the preliminary conditional statements in `bsearch_enhanced()` cr
 Instead of initializing with a median pivot value before determining a search direction, the `high` bound is halved, meaning the first Binary Search operation always uses subtraction repeatedly before proceeding in the opposite direction.
 
 The alternation prevents excessive array accesses and equality operations after each modification of the `high` bound to increase speed without either exceeding bounds or skipping elements.
-
 It repeats until either `gap` is `2` or the `high` bound is greater than or equal to `needle`. Then, to avoid infinite loops, it processes a final one-way Binary Search operation as if `gap` is `1`.
+
+The following benchmarks measure the [benchmark example](https://github.com/wstaffordp/bsearch-enhanced/blob/master/examples/benchmark.c) speed from the Unix `time` command with various compilers and settings.
+
+```
+gcc -O3
+
+1st   bsearch_enhanced()          0.219s
+2nd   bsearch()                   0.258s
+3rd   binary_search()             0.264s
+4th   monobound_binary_search()   0.319s
+5th   interpolation_search()      0.389s
+```
+
+```
+gcc -O2
+
+1st   bsearch_enhanced()          0.244s
+2nd   binary_search()             0.285s
+3rd   bsearch()                   0.293s
+4th   monobound_binary_search()   0.341s
+5th   interpolation_search()      0.421s
+```
+
+```
+gcc -O1
+
+1st   bsearch_enhanced()          0.227s
+2nd   binary_search()             0.278s
+3rd   monobound_binary_search()   0.308s
+4th   bsearch()                   0.334s
+5th   interpolation_search()      0.422s
+```
+
+```
+gcc -O0
+
+1st   bsearch_enhanced()          0.514s
+2nd   bsearch()                   0.637s
+3rd   monobound_binary_search()   0.659s
+4th   binary_search()             0.675s
+5th   interpolation_search()      0.863s
+```
+
+```
+clang -O3
+
+1st   bsearch_enhanced()          0.213s
+2nd   bsearch()                   0.251s
+3rd   monobound_binary_search()   0.261s
+4th   binary_search()             0.264s
+5th   interpolation_search()      0.435s
+```
+
+```
+clang -O2
+
+1st   bsearch_enhanced()          0.219s
+2nd   bsearch()                   0.272s
+3rd   monobound_binary_search()   0.280s
+4th   binary_search()             0.281s
+5th   interpolation_search()      0.475s
+```
+
+```
+clang -O1
+
+1st   bsearch_enhanced()          0.219s
+2nd   bsearch()                   0.265s
+3rd   monobound_binary_search()   0.274s
+4th   binary_search()             0.280s
+5th   interpolation_search()      0.477s
+```
+
+```
+clang -O0
+
+1st   bsearch_enhanced()          0.552s
+2nd   bsearch()                   0.646s
+3rd   binary_search()             0.694s
+4th   monobound_binary_search()   0.703s
+5th   interpolation_search()      0.809s
+```
