@@ -32,10 +32,11 @@ In addition to the preliminary conditional statements in `bsearch_enhanced()` cr
 
 Instead of initializing with a median pivot value before determining a search direction, the `high` bound is halved, meaning the first Binary Search operation always uses subtraction repeatedly before proceeding in the opposite direction.
 
-The alternation prevents excessive array accesses and equality operations after each modification of the `high` bound to increase speed without either exceeding bounds or skipping elements.
-It repeats until either `gap` is `2` or the `high` bound is greater than or equal to `needle`. Then, to avoid infinite loops, it processes a final one-way Binary Search operation as if `gap` is `1`.
+The alternation prevents excessive array accesses and equality operations after each modification of the `high` bound to increase speed without either exceeding bounds or skipping elements. It repeats until either `gap` is `2` or the `high` bound is greater than or equal to `needle`. Then, to avoid infinite loops, it processes a final one-way Binary Search operation as if `gap` is `1`.
 
 The following benchmarks measure the [benchmark example](https://github.com/wstaffordp/bsearch-enhanced/blob/master/examples/benchmark.c) speed from the Unix `time` command with various compilers and settings.
+
+Each benchmark speed result uses the fastest result from a set of tests on an Intel Core m3-8100Y processor.
 
 ```
 gcc -O3
@@ -116,3 +117,5 @@ clang -O0
 4th   monobound_binary_search()   0.703s
 5th   interpolation_search()      0.809s
 ```
+
+In conclusion, `bsearch_enhanced()` achieves a perfect balance between flexibility and speed as a substantial performance and security enhancement for all C applications that depend on `bsearch()` to search for elements during runtime.
